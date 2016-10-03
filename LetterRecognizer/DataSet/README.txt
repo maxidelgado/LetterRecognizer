@@ -1,0 +1,1 @@
+el DataSet está formado por las letras mezcladas de forma aleatoria y dividido en test y train.
