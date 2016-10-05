@@ -19,7 +19,7 @@ PLACEHOLDERS:
 
 Las imagenes de entrada x consistiran en un tensor 2D de numeros de punto flotante.
 Le damos la forma [None, 784], donde 784 corresponde a 28x28 píxels de las imagenes de MNIST
-y None indice que la dimension del lote puede ser de cualquier tamaño.
+y None indica que la dimension del lote puede ser de cualquier tamaño.
 
 La salida y_ es de forma [None, 10] ya que hay 10 posibles valores de salida (del 0 al 9)
 '''

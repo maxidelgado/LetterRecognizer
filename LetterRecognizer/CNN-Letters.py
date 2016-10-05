@@ -3,6 +3,8 @@ import numpy as np
 import os
 from Support import NpyUtils as nputil
 
+save_model = os.path.join('SavedModels')
+
 path_data_train = os.path.join('DataSet','data_train.npy')
 path_labels_train = os.path.join('DataSet','labels_train.npy')
 path_data_test = os.path.join('DataSet','data_test.npy')
@@ -70,13 +72,17 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 sess.run(tf.initialize_all_variables())
 
 dataSet = nputil.DataSet()
+saver = tf.train.Saver()
 for i in range(20000):
     mini_batch_xs, mini_batch_ys = dataSet.next_batch(batch_xs, batch_ys, 50)
     if i%100 == 0:
         train_accuracy = accuracy.eval(feed_dict={
                 x:mini_batch_xs, y_: mini_batch_ys, keep_prob: 1.0})
         print("step %d, training accuracy %g"%(i, train_accuracy))
+        if i%5000 == 0:
+            saver.save(sess, save_path=save_model+'/CNN-model-',global_step=i)
     train_step.run(feed_dict={x: mini_batch_xs, y_: mini_batch_ys, keep_prob: 0.5})
 
+saver.save(sess, save_path=save_model+'/CNN-model-',global_step=20000)
 print("test accuracy %g"%accuracy.eval(feed_dict={
     x: data_test, y_: labels_test, keep_prob: 1.0}))
